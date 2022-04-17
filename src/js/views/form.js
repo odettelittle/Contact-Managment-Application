@@ -10,9 +10,7 @@ export const Form = () => {
 			agenda_slug:"my_library",
 			email:"",
 		});
-  
-    return (
-
+  np
 	useEffect(() => {
 
 
@@ -20,13 +18,61 @@ export const Form = () => {
   		.then(response => response.text())
   		.then(result => console.log(result))
  	 	.catch(error => console.log('error', error));
-	}, [])
+	}, []);
 
 
 /////////////////////////
 
 const addContact = (newContact) => {
-      const newData = [...data,{ ]
+      const newData = [...data,{ label: newContact, done : false}];
 
-)        
+	  var myHeaders = new Headers();
+	  myHeaders.append("Content-Type", "application/json");
+
+	  var raw = JSON.stringify(newList);
+
+	  var requestOptions = {
+		  method: "PUT",
+		  headers: myHeaders,
+		  body: raw,
+		  redirect: "follow",
+	  };
+
+	  fetch(
+		  "https://assets.breatheco.de/apis/fake/todos/user/my_library",
+		  requestOptions
+	  )
+	  .then((response) =>
+				response.status === 200 ? setList(newData) : ""
+			)
+			.catch((error) => console.log("error", error));
+	};
+
+////////////////////
+
+const deleteContact = (itemDelete) => {
+	var myHeaders = new Headers();
+	myHeaders.append("Content-Type", "application/json");
+
+	var raw = JSON.stringify(itemDelete);
+
+	var requestOptions = {
+		method: "PUT",
+		headers: myHeaders,
+		body: raw,
+		redirect: "follow",
+	};
+
+	fetch(
+		"https://assets.breatheco.de/apis/fake/todos/user/my_library",
+		requestOptions
+	)
+		.then((response) =>
+			response.status === 200 ? setList(itemDelete) : ""
+		)
+		.catch((error) => console.log("error", error));
+};
+
+////////////////////////
+
 };
