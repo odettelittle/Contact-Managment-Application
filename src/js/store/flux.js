@@ -1,43 +1,41 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			contactList: [],	
 		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+		actions: { 
+		
+			getContact: () => {
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				  };
+				  
+				  fetch("https://assets.breatheco.de/apis/fake/contact/agenda/my_library", requestOptions)
+					.then(response => response.text())
+					.then(result => setStore({contactList : result}))
+					.catch(error => console.log('error', error));
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+			},
+			addContact: (contact) => {
+				fetch("https://assets.breatheco.de/apis/fake/todos/user/my_library", {
+				  method: "PUT",
+				  redirect: "follow",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				  body: JSON.stringify([
+					...getStore().contactList,
+					{ label: contact, done: false },
+				  ]),
+				})
+				  .then((response) =>
+					response.status === 200 ? getActions().getData() : ""
+				  )
+				  .catch((error) => console.log("error", error));
+			  },
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
+
 		}
 	};
 };
