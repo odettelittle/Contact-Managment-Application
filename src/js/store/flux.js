@@ -26,7 +26,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
             
           },
-          body: JSON.stringify(),
+          body: JSON.stringify(contact),
         })
           .then((response) =>
             response.status === 200 ? getActions().getData() : ""

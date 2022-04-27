@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Form = () => {
-  const [data, setData] = useState({
+  const [data, setData] = useState 
+  ({
     full_name: "",
     email: "",
     phone: "",
@@ -11,16 +13,18 @@ export const Form = () => {
     email: "",
   });
 
+const {store,actions} = useContext(Context)
+
   console.log(data)
   return (
     <>
       <form>
         <div className="mb-3">
           <label for="exampleInputEmail1" className="form-label">
-            Full Name
+            Full name 
           </label>
           <input
-            type="email"
+            type="input"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -42,7 +46,7 @@ export const Form = () => {
             Phone
           </label>
           <input
-            type="email"
+            type="input"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -53,7 +57,7 @@ export const Form = () => {
             Address
           </label>
           <input
-            type="email"
+            type="input"
             className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
@@ -62,7 +66,13 @@ export const Form = () => {
 
         </div>
         <div className=" d-flex justify-content-center">
-          <button className="btn btn-success align-self-center"> Save </button>
+          <button className="btn btn-success align-self-center"
+          onClick={(e)=>{ 
+          actions.addContact(data)
+          e.preventDefault()
+        }}
+
+          > Save </button>
         </div>
       </form>
 
