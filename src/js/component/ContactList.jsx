@@ -7,6 +7,7 @@ export const ContactList = () => {
     return (     
     <div>
         <ContactCard/>
+        
     </div>
 
     )

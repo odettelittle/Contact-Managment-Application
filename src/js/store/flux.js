@@ -19,6 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
       addContact: (contact) => {
+        console.log(contact)
         fetch("https://assets.breatheco.de/apis/fake/contact/", {
           method: "POST",
           redirect: "follow",
@@ -29,10 +30,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           body: JSON.stringify(contact),
         })
           .then((response) =>
-            response.status === 200 ? getActions().getData() : ""
+            response.status === 200 ? getActions().getContact() : ""
           )
           .catch((error) => console.log("error", error));
       },
+      deleteContact: (contact_id) => {
+        var requestOptions = {
+          method: "DELETE"
+        };
+        fetch(
+          `https://assets.breatheco.de/apis/fake/contact/${contact_id}`,
+          requestOptions
+        )
+          .then((response) =>
+            response.status === 200 ? getActions().getContact() : ""
+          )
+          .catch((error) => console.log("error", error));
+        }
+
     },
   };
 };

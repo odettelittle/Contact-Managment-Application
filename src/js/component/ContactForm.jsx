@@ -1,19 +1,19 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Form = () => {
-  const [data, setData] = useState 
-  ({
-    full_name: "",
-    email: "",
-    phone: "",
-    address: "",
-    agenda_slug: "my_library",
-    email: "",
-  });
+  const [data, setData] = useState
+    ({
+      full_name: "",
+      email: "",
+      phone: "",
+      address: "",
+      agenda_slug: "my_library",
+      email: "",
+    });
 
-const {store,actions} = useContext(Context)
+  const { store, actions } = useContext(Context)
 
   console.log(data)
   return (
@@ -21,7 +21,7 @@ const {store,actions} = useContext(Context)
       <form>
         <div className="mb-3">
           <label for="exampleInputEmail1" className="form-label">
-            Full name 
+            Full name
           </label>
           <input
             type="input"
@@ -66,13 +66,14 @@ const {store,actions} = useContext(Context)
 
         </div>
         <div className=" d-flex justify-content-center">
-          <button className="btn btn-success align-self-center"
-          onClick={(e)=>{ 
-          actions.addContact(data)
-          e.preventDefault()
-        }}
-
-          > Save </button>
+          <Link to="/">
+            <button className="btn btn-success align-self-center"
+              onClick={(e) => {
+                actions.addContact(data)
+                e.preventDefault()
+              }}
+            > Save </button>
+          </Link>
         </div>
       </form>
 
