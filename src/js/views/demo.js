@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { Form } from "../component/ContactForm.jsx"
+import { Form } from "../component/Form.jsx"
 
 import { Context } from "../store/appContext";
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Form = () => {
@@ -12,15 +12,20 @@ export const Form = () => {
       agenda_slug: "my_library",
       email: "",
     });
+    const { store, actions } = useContext(Context)
+    let { id } = useParams();
 
-  const { store, actions } = useContext(Context)
-
-  console.log(data)
+  console.log("id", id)
   return (
     <>
       <form>
+        {
+          // contact ?
+          //   <h1>Edit Contact</h1> :
+            <h1>Add a Contact</h1>
+        }
         <div className="mb-3">
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Full name
           </label>
           <input
@@ -31,7 +36,7 @@ export const Form = () => {
             onChange={(e) => setData({ ...data, full_name: e.target.value })}
             value={data.full_name}
           />
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Email
           </label>
           <input
@@ -42,7 +47,7 @@ export const Form = () => {
             onChange={(e) => setData({ ...data, email: e.target.value })}
             value={data.email}
           />
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Phone
           </label>
           <input
@@ -53,7 +58,7 @@ export const Form = () => {
             onChange={(e) => setData({ ...data, phone: e.target.value })}
             value={data.phone}
           />
-          <label for="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputEmail1" className="form-label">
             Address
           </label>
           <input

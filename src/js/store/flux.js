@@ -19,16 +19,15 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
       addContact: (contact) => {
-        console.log(contact)
-        fetch("https://assets.breatheco.de/apis/fake/contact/", {
+        var requestOptions = {
           method: "POST",
           redirect: "follow",
           headers: {
             "Content-Type": "application/json",
-            
           },
           body: JSON.stringify(contact),
-        })
+        };
+        fetch("https://assets.breatheco.de/apis/fake/contact/", requestOptions)
           .then((response) =>
             response.status === 200 ? getActions().getContact() : ""
           )
@@ -36,7 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       deleteContact: (contact_id) => {
         var requestOptions = {
-          method: "DELETE"
+          method: "DELETE",
         };
         fetch(
           `https://assets.breatheco.de/apis/fake/contact/${contact_id}`,
@@ -46,18 +45,35 @@ const getState = ({ getStore, getActions, setStore }) => {
             response.status === 200 ? getActions().getContact() : ""
           )
           .catch((error) => console.log("error", error));
-        }
+      },
 
+      editContact: (contact, contact_id) => {
+        var requestOptions = {
+          method: "PUT",
+          redirect: "follow",
+          headers: {
+          "Content-Type":"application/json",
+          },
+          body: JSON.stringify(contact)
+        };
+        fetch(
+          `https://assets.breatheco.de/apis/fake/contact/${contact_id}`,
+          requestOptions
+        )
+          .then((response) =>
+            response.status === 200 ? getActions().getContact() : ""
+          )
+          .catch((error) => console.log("error", error));
+      },
     },
   };
 };
 
 export default getState;
 
-// POST: /apis/fake/contact/
-// Request (application/json)
+// (application/json)
 
-//     body:
+//  body:
 //     {
 //         "full_name": "Dave Bradley",
 //         "email": "dave@gmail.com",
