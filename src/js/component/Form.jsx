@@ -12,17 +12,28 @@ export const Form = () => {
       agenda_slug: "my_library",
       email: "",
     });
-    const { store, actions } = useContext(Context)
-    let { id } = useParams();
+  const { store, actions } = useContext(Context)
+  let { id } = useParams();
 
   console.log("id", id)
+  useEffect(() => {
+    id && setData(store.contactList.filter(element => element.id == id)[0])
+  }, [])
+  console.log("data on form",data)
+  // const addContact = (e) => {
+  //   e.preventDefault();
+  //   console.log("ok")
+  //   actions.addContact(data)
+  // };
+  // const editContact = (e) => {
+  //   e.preventDefault();
+  //   actions.editContact(data, data.id)
+  //};
   return (
     <>
       <form>
         {
-          // contact ?
-          //   <h1>Edit Contact</h1> :
-            <h1>Add a Contact</h1>
+          id ? <h1>Edit</h1> : <h1>Add</h1>
         }
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
@@ -73,10 +84,7 @@ export const Form = () => {
         <div className=" d-flex justify-content-center">
           <Link to="/">
             <button className="btn btn-success align-self-center"
-              onClick={(e) => {
-                actions.addContact(data)
-                e.preventDefault()
-              }}
+              onClick={() => id ? actions.editContact(data, data.id) : actions.addContact(data)}
             > Save </button>
           </Link>
         </div>
